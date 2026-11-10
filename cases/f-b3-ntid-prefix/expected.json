@@ -1,0 +1,132 @@
+{
+  "action_time": null,
+  "unbound_record_ids": [
+    "auth-1",
+    "claim-3",
+    "del-1",
+    "id-1",
+    "log-3",
+    "m1",
+    "order-9",
+    "req-7",
+    "st-m1"
+  ],
+  "lines": [
+    {
+      "id": "AP-1",
+      "result": "NOT_CAPTURED",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-1.agent",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        },
+        {
+          "part": "AP-1.person",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        }
+      ]
+    },
+    {
+      "id": "AP-2",
+      "result": "NOT_CAPTURED",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-2.request",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        }
+      ]
+    },
+    {
+      "id": "AP-3",
+      "result": "NOT_CAPTURED",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-3.limits",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        }
+      ]
+    },
+    {
+      "id": "AP-4",
+      "result": "NOT_CAPTURED",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-4.approval",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        }
+      ]
+    },
+    {
+      "id": "AP-5",
+      "result": "NOT_CAPTURED",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-5.attempts",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        },
+        {
+          "part": "AP-5.related",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        }
+      ]
+    },
+    {
+      "id": "AP-6",
+      "result": "NOT_CAPTURED",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-6.charge",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        },
+        {
+          "part": "AP-6.order",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        },
+        {
+          "part": "AP-6.delivery",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        }
+      ]
+    },
+    {
+      "id": "AP-7",
+      "result": "NOT_CAPTURED",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-7.claim",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        }
+      ]
+    },
+    {
+      "id": "AP-8",
+      "result": "NOT_CAPTURED",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-8.status",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "profile": "agent-proof-checklist/0.1",
+  "case_id": "base-expired-mandate",
+  "case_binding": {
+    "kind": "network_transaction_id",
+    "value": "ntid-1"
+  },
+  "aep_bundle": null,
+  "filed_by": "merchant",
+  "filed_at": "2026-11-03T12:00:00Z",
+  "keepers": {},
+  "records_complete": true,
+  "records": [
+    {
+      "id": "auth-1",
+      "party": "psp-co",
+      "party_role": "psp",
+      "runs_agent": "false",
+      "operator_affiliated": "false",
+      "kind": "authorization",
+      "signer": "psp",
+      "binding": {
+        "kind": "network_transaction_id",
+        "value": "ntid-1",
+        "via": null
+      },
+      "ref": "ref-auth-1",
+      "check": "verified_by_other",
+      "fields": {
+        "authorized_at": "2026-11-01T10:05:30Z",
+        "charge_id": "ch-1",
+        "amount": "50.00",
+        "currency": "USD",
+        "seller": "shopA",
+        "link_tokens": [
+          "agentkey-9",
+          "mandate-m1",
+          "req-7",
+          "log-3",
+          "order-9",
+          "status-m1"
+        ]
+      }
+    },
+    {
+      "id": "id-1",
+      "party": "card-net",
+      "party_role": "network",
+      "runs_agent": "false",
+      "operator_affiliated": "false",
+      "kind": "identity",
+      "signer": "network",
+      "binding": {
+        "kind": "request_ref",
+        "value": "agentkey-9",
+        "via": "auth-1"
+      },
+      "ref": "ref-id-1",
+      "check": "verified_by_other",
+      "fields": {
+        "verified_at": "2026-11-01T10:04:00Z",
+        "agent_identity": "agent-A"
+      }
+    },
+    {
+      "id": "m1",
+      "party": "cp-1",
+      "party_role": "credentials_provider",
+      "runs_agent": "false",
+      "operator_affiliated": "false",
+      "kind": "mandate",
+      "signer": "person",
+      "binding": {
+        "kind": "mandate_ref",
+        "value": "mandate-m1",
+        "via": "auth-1"
+      },
+      "ref": "ref-m1",
+      "check": "verified_by_other",
+      "fields": {
+        "issued_at": "2026-11-01T09:00:00Z",
+        "person_identity": "person-P",
+        "agent_identity": "agent-A",
+        "item_id": "sku1",
+        "quantity": "1",
+        "unit_price": "50.00",
+        "cap": "50.00",
+        "cap_scope": "per_purchase",
+        "currency": "USD",
+        "allowed_sellers": [
+          "shopA"
+        ],
+        "expires_at": "2026-11-01T10:00:00Z",
+        "revocable_by": [
+          "credentials_provider"
+        ]
+      }
+    },
+    {
+      "id": "req-7",
+      "party": "psp-co",
+      "party_role": "psp",
+      "runs_agent": "false",
+      "operator_affiliated": "false",
+      "kind": "payment_request",
+      "signer": "psp",
+      "binding": {
+        "kind": "request_ref",
+        "value": "req-7",
+        "via": "auth-1"
+      },
+      "ref": "ref-req-7",
+      "check": "verified_by_other",
+      "fields": {
+        "logged_at": "2026-11-01T10:05:00Z",
+        "request_id": "req-7",
+        "amount": "50.00",
+        "currency": "USD",
+        "seller": "shopA"
+      }
+    },
+    {
+      "id": "log-3",
+      "party": "psp-co",
+      "party_role": "psp",
+      "runs_agent": "false",
+      "operator_affiliated": "false",
+      "kind": "attempt_log",
+      "signer": "psp",
+      "binding": {
+        "kind": "request_ref",
+        "value": "log-3",
+        "via": "auth-1"
+      },
+      "ref": "ref-log-3",
+      "check": "verified_by_other",
+      "fields": {
+        "closed_at": "2026-11-01T10:06:00Z",
+        "request_ids": [
+          "req-7"
+        ],
+        "first_request_at": "2026-11-01T10:05:00Z",
+        "charges": [
+          {
+            "charge_id": "ch-1",
+            "amount": "50.00",
+            "currency": "USD"
+          }
+        ]
+      }
+    },
+    {
+      "id": "order-9",
+      "party": "shopA",
+      "party_role": "merchant",
+      "runs_agent": "false",
+      "operator_affiliated": "false",
+      "kind": "order",
+      "signer": "merchant",
+      "binding": {
+        "kind": "order_id",
+        "value": "order-9",
+        "via": "auth-1"
+      },
+      "ref": "ref-order-9",
+      "check": "verified_by_other",
+      "fields": {
+        "created_at": "2026-11-01T10:05:10Z",
+        "order_id": "order-9",
+        "item_id": "sku1",
+        "quantity": "1",
+        "unit_price": "50.00",
+        "currency": "USD",
+        "seller": "shopA",
+        "link_tokens": [
+          "trk-77",
+          "claim-3"
+        ]
+      }
+    },
+    {
+      "id": "del-1",
+      "party": "carrier-1",
+      "party_role": "carrier",
+      "runs_agent": "false",
+      "operator_affiliated": "false",
+      "kind": "delivery",
+      "signer": "carrier",
+      "binding": {
+        "kind": "tracking_id",
+        "value": "trk-77",
+        "via": "order-9"
+      },
+      "ref": "ref-del-1",
+      "check": "verified_by_other",
+      "fields": {
+        "status_at": "2026-11-02T15:00:00Z",
+        "delivery_status": "delivered"
+      }
+    },
+    {
+      "id": "claim-3",
+      "party": "agent-co",
+      "party_role": "agent",
+      "runs_agent": "true",
+      "operator_affiliated": "true",
+      "kind": "agent_claim",
+      "signer": "agent",
+      "binding": {
+        "kind": "order_id",
+        "value": "claim-3",
+        "via": "order-9"
+      },
+      "ref": "ref-claim-3",
+      "check": "none",
+      "fields": {
+        "claimed_at": "2026-11-02T16:00:00Z",
+        "delivery_status": "delivered"
+      }
+    },
+    {
+      "id": "st-m1",
+      "party": "cp-1",
+      "party_role": "credentials_provider",
+      "runs_agent": "false",
+      "operator_affiliated": "false",
+      "kind": "status",
+      "signer": "credentials_provider",
+      "binding": {
+        "kind": "mandate_ref",
+        "value": "status-m1",
+        "via": "auth-1"
+      },
+      "ref": "ref-st-m1",
+      "check": "verified_by_other",
+      "fields": {
+        "status_as_of": "2026-11-01T10:07:00Z",
+        "permission_of": "m1",
+        "permission_status": "active",
+        "active_since": "2026-11-01T09:00:00Z"
+      }
+    }
+  ]
+}

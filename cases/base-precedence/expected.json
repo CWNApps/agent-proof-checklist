@@ -1,0 +1,146 @@
+{
+  "action_time": "2026-11-01T10:05:00Z",
+  "unbound_record_ids": [],
+  "lines": [
+    {
+      "id": "AP-1",
+      "result": "PRESENT",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-1.agent",
+          "reason": "PRESENT",
+          "record_ids": [
+            "id-1"
+          ]
+        },
+        {
+          "part": "AP-1.person",
+          "reason": "PRESENT",
+          "record_ids": [
+            "m1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AP-2",
+      "result": "PRESENT",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-2.request",
+          "reason": "PRESENT",
+          "record_ids": [
+            "m1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AP-3",
+      "result": "PRESENT",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-3.limits",
+          "reason": "PRESENT",
+          "record_ids": [
+            "m1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AP-4",
+      "result": "NOT_CAPTURED",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-4.approval",
+          "reason": "NOT_CAPTURED",
+          "record_ids": []
+        }
+      ]
+    },
+    {
+      "id": "AP-5",
+      "result": "PRESENT",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-5.attempts",
+          "reason": "PRESENT",
+          "record_ids": [
+            "log-3",
+            "req-7"
+          ]
+        },
+        {
+          "part": "AP-5.related",
+          "reason": "PRESENT",
+          "record_ids": [
+            "log-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AP-6",
+      "result": "PRESENT",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-6.charge",
+          "reason": "PRESENT",
+          "record_ids": [
+            "auth-1"
+          ]
+        },
+        {
+          "part": "AP-6.order",
+          "reason": "PRESENT",
+          "record_ids": [
+            "order-9"
+          ]
+        },
+        {
+          "part": "AP-6.delivery",
+          "reason": "PRESENT",
+          "record_ids": [
+            "del-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AP-7",
+      "result": "PRESENT",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-7.claim",
+          "reason": "PRESENT",
+          "record_ids": [
+            "claim-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AP-8",
+      "result": "NOT_ACTIVE",
+      "line_codes": [],
+      "parts": [
+        {
+          "part": "AP-8.status:m1",
+          "reason": "NOT_ACTIVE",
+          "record_ids": [
+            "st-m1",
+            "st-m1b"
+          ]
+        }
+      ]
+    }
+  ]
+}

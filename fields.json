@@ -1,0 +1,625 @@
+{
+ "version": "0.1.0",
+ "types": {
+  "token": "^[\\x21-\\x7E]{1,128}$",
+  "decimal": "^(0|[1-9][0-9]*)(\\.[0-9]{1,6})?$",
+  "integer": "^(0|[1-9][0-9]*)$",
+  "currency": "^[A-Z]{3}$",
+  "time": "^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})(\\.\\d{1,9})?(Z|[+-]\\d{2}:\\d{2})$"
+ },
+ "enums": {
+  "party_role": [
+   "agent",
+   "agent_operator",
+   "merchant",
+   "psp",
+   "network",
+   "issuer",
+   "credentials_provider",
+   "token_service",
+   "wallet",
+   "carrier",
+   "person",
+   "other"
+  ],
+  "tristate": [
+   "true",
+   "false",
+   "unknown"
+  ],
+  "signer": [
+   "person",
+   "credentials_provider",
+   "issuer",
+   "wallet",
+   "merchant",
+   "psp",
+   "network",
+   "token_service",
+   "carrier",
+   "agent",
+   "other",
+   "none"
+  ],
+  "check": [
+   "verified_by_other",
+   "recomputed",
+   "failed",
+   "not_run",
+   "none"
+  ],
+  "check_detail": [
+   "signature_invalid",
+   "hash_mismatch",
+   "key_revoked",
+   "unsupported_version",
+   "other"
+  ],
+  "binding_kind": [
+   "network_transaction_id",
+   "charge_id",
+   "chain_id",
+   "cart_hash",
+   "order_id",
+   "tracking_id",
+   "mandate_ref",
+   "request_ref"
+  ],
+  "filed_by": [
+   "merchant",
+   "psp",
+   "issuer",
+   "dispute_firm",
+   "agent_platform",
+   "other"
+  ],
+  "keeper": [
+   "exists",
+   "none",
+   "unsure"
+  ],
+  "cap_scope": [
+   "per_purchase",
+   "cumulative"
+  ],
+  "delivery_status": [
+   "delivered",
+   "in_transit",
+   "returned",
+   "failed",
+   "access_granted"
+  ],
+  "permission_status": [
+   "active",
+   "revoked",
+   "expired",
+   "suspended"
+  ],
+  "kind": [
+   "identity",
+   "mandate",
+   "token",
+   "approval",
+   "payment_request",
+   "attempt_log",
+   "authorization",
+   "order",
+   "delivery",
+   "status",
+   "agent_claim",
+   "refund",
+   "other"
+  ]
+ },
+ "part_keys": [
+  "AP-1.agent",
+  "AP-1.person",
+  "AP-2.request",
+  "AP-3.limits",
+  "AP-4.approval",
+  "AP-5.attempts",
+  "AP-5.related",
+  "AP-6.charge",
+  "AP-6.order",
+  "AP-6.delivery",
+  "AP-7.claim",
+  "AP-8.status"
+ ],
+ "kinds": {
+  "identity": {
+   "time_field": "verified_at",
+   "entity_key": null,
+   "fields": {
+    "verified_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "agent_identity": {
+     "type": "token",
+     "req": "always"
+    }
+   },
+   "parts": [
+    {
+     "part": "AP-1.agent",
+     "when": "always"
+    }
+   ],
+   "require_any": []
+  },
+  "mandate": {
+   "time_field": "issued_at",
+   "entity_key": "@id",
+   "fields": {
+    "issued_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "person_identity": {
+     "type": "token",
+     "req": "always"
+    },
+    "agent_identity": {
+     "type": "token",
+     "req": "always"
+    },
+    "item_id": {
+     "type": "token",
+     "req": "never"
+    },
+    "quantity": {
+     "type": "integer",
+     "req": "never"
+    },
+    "unit_price": {
+     "type": "decimal",
+     "req": "never"
+    },
+    "cap": {
+     "type": "decimal",
+     "req": "never"
+    },
+    "cap_scope": {
+     "type": "enum:cap_scope",
+     "req": "when has cap"
+    },
+    "currency": {
+     "type": "currency",
+     "req": "when has any cap,unit_price"
+    },
+    "allowed_sellers": {
+     "type": "token_list",
+     "req": "never"
+    },
+    "not_before": {
+     "type": "time",
+     "req": "never"
+    },
+    "expires_at": {
+     "type": "time",
+     "req": "never"
+    },
+    "revocable_by": {
+     "type": "role_list",
+     "req": "never"
+    }
+   },
+   "parts": [
+    {
+     "part": "AP-1.person",
+     "when": "always"
+    },
+    {
+     "part": "AP-2.request",
+     "when": "when has item_id,quantity"
+    },
+    {
+     "part": "AP-3.limits",
+     "when": "when has any cap,allowed_sellers,expires_at"
+    }
+   ],
+   "require_any": []
+  },
+  "token": {
+   "time_field": "issued_at",
+   "entity_key": "@id",
+   "fields": {
+    "issued_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "cap": {
+     "type": "decimal",
+     "req": "always"
+    },
+    "cap_scope": {
+     "type": "enum:cap_scope",
+     "req": "always"
+    },
+    "currency": {
+     "type": "currency",
+     "req": "always"
+    },
+    "agent_identity": {
+     "type": "token",
+     "req": "never"
+    },
+    "allowed_sellers": {
+     "type": "token_list",
+     "req": "never"
+    },
+    "not_before": {
+     "type": "time",
+     "req": "never"
+    },
+    "expires_at": {
+     "type": "time",
+     "req": "never"
+    },
+    "revocable_by": {
+     "type": "role_list",
+     "req": "never"
+    }
+   },
+   "parts": [
+    {
+     "part": "AP-3.limits",
+     "when": "always"
+    }
+   ],
+   "require_any": []
+  },
+  "approval": {
+   "time_field": "approved_at",
+   "entity_key": "@id",
+   "fields": {
+    "approved_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "person_identity": {
+     "type": "token",
+     "req": "always"
+    },
+    "amount": {
+     "type": "decimal",
+     "req": "always"
+    },
+    "currency": {
+     "type": "currency",
+     "req": "always"
+    },
+    "item_id": {
+     "type": "token",
+     "req": "always"
+    },
+    "quantity": {
+     "type": "integer",
+     "req": "never"
+    }
+   },
+   "parts": [
+    {
+     "part": "AP-4.approval",
+     "when": "always"
+    }
+   ],
+   "require_any": []
+  },
+  "payment_request": {
+   "time_field": "logged_at",
+   "entity_key": "request_id",
+   "fields": {
+    "logged_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "request_id": {
+     "type": "token",
+     "req": "always"
+    },
+    "amount": {
+     "type": "decimal",
+     "req": "always"
+    },
+    "currency": {
+     "type": "currency",
+     "req": "always"
+    },
+    "seller": {
+     "type": "token",
+     "req": "always"
+    },
+    "link_tokens": {
+     "type": "token_list",
+     "req": "never"
+    }
+   },
+   "parts": [
+    {
+     "part": "AP-5.attempts",
+     "when": "always"
+    }
+   ],
+   "require_any": []
+  },
+  "attempt_log": {
+   "time_field": "closed_at",
+   "entity_key": "@id",
+   "fields": {
+    "closed_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "request_ids": {
+     "type": "token_list",
+     "req": "always"
+    },
+    "first_request_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "charges": {
+     "type": "charge_list",
+     "req": "always"
+    },
+    "link_tokens": {
+     "type": "token_list",
+     "req": "never"
+    }
+   },
+   "parts": [
+    {
+     "part": "AP-5.attempts",
+     "when": "always"
+    },
+    {
+     "part": "AP-5.related",
+     "when": "always"
+    }
+   ],
+   "require_any": []
+  },
+  "authorization": {
+   "time_field": "authorized_at",
+   "entity_key": "charge_id",
+   "fields": {
+    "authorized_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "charge_id": {
+     "type": "token",
+     "req": "always"
+    },
+    "amount": {
+     "type": "decimal",
+     "req": "always"
+    },
+    "currency": {
+     "type": "currency",
+     "req": "always"
+    },
+    "seller": {
+     "type": "token",
+     "req": "always"
+    },
+    "link_tokens": {
+     "type": "token_list",
+     "req": "never"
+    }
+   },
+   "parts": [
+    {
+     "part": "AP-6.charge",
+     "when": "always"
+    }
+   ],
+   "require_any": []
+  },
+  "order": {
+   "time_field": "created_at",
+   "entity_key": "order_id",
+   "fields": {
+    "created_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "order_id": {
+     "type": "token",
+     "req": "always"
+    },
+    "item_id": {
+     "type": "token",
+     "req": "always"
+    },
+    "quantity": {
+     "type": "integer",
+     "req": "always"
+    },
+    "unit_price": {
+     "type": "decimal",
+     "req": "never"
+    },
+    "currency": {
+     "type": "currency",
+     "req": "never"
+    },
+    "seller": {
+     "type": "token",
+     "req": "never"
+    },
+    "link_tokens": {
+     "type": "token_list",
+     "req": "never"
+    }
+   },
+   "parts": [
+    {
+     "part": "AP-6.order",
+     "when": "always"
+    }
+   ],
+   "require_any": []
+  },
+  "delivery": {
+   "time_field": "status_at",
+   "entity_key": null,
+   "fields": {
+    "status_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "delivery_status": {
+     "type": "enum:delivery_status",
+     "req": "always"
+    },
+    "delivery_address_hash": {
+     "type": "token",
+     "req": "never"
+    }
+   },
+   "parts": [
+    {
+     "part": "AP-6.delivery",
+     "when": "always"
+    }
+   ],
+   "require_any": []
+  },
+  "status": {
+   "time_field": "status_as_of",
+   "entity_key": "permission_of",
+   "fields": {
+    "status_as_of": {
+     "type": "time",
+     "req": "always"
+    },
+    "permission_of": {
+     "type": "record_ref",
+     "req": "always",
+     "ref_kinds": [
+      "mandate",
+      "token"
+     ]
+    },
+    "permission_status": {
+     "type": "enum:permission_status",
+     "req": "always"
+    },
+    "active_since": {
+     "type": "time",
+     "req": "when permission_status=active"
+    },
+    "effective_at": {
+     "type": "time",
+     "req": "when permission_status!=active",
+     "allowed": "when permission_status!=active"
+    }
+   },
+   "parts": [
+    {
+     "part": "AP-8.status:{permission_of}",
+     "when": "always"
+    }
+   ],
+   "require_any": []
+  },
+  "agent_claim": {
+   "time_field": "claimed_at",
+   "entity_key": null,
+   "fields": {
+    "claimed_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "delivery_status": {
+     "type": "enum:delivery_status",
+     "req": "never"
+    },
+    "item_id": {
+     "type": "token",
+     "req": "never"
+    },
+    "quantity": {
+     "type": "integer",
+     "req": "never"
+    },
+    "amount": {
+     "type": "decimal",
+     "req": "never"
+    },
+    "currency": {
+     "type": "currency",
+     "req": "never"
+    },
+    "seller": {
+     "type": "token",
+     "req": "never"
+    }
+   },
+   "require_any": [
+    "delivery_status",
+    "item_id",
+    "quantity",
+    "amount",
+    "currency",
+    "seller"
+   ],
+   "parts": [
+    {
+     "part": "AP-7.claim",
+     "when": "always"
+    }
+   ]
+  },
+  "refund": {
+   "time_field": "refunded_at",
+   "entity_key": "refund_id",
+   "fields": {
+    "refunded_at": {
+     "type": "time",
+     "req": "always"
+    },
+    "refund_id": {
+     "type": "token",
+     "req": "always"
+    },
+    "amount": {
+     "type": "decimal",
+     "req": "always"
+    },
+    "currency": {
+     "type": "currency",
+     "req": "always"
+    }
+   },
+   "parts": [],
+   "require_any": []
+  },
+  "other": {
+   "time_field": "recorded_at",
+   "entity_key": null,
+   "fields": {
+    "recorded_at": {
+     "type": "time",
+     "req": "always"
+    }
+   },
+   "parts": [],
+   "require_any": []
+  }
+ },
+ "material_fields": [
+  "agent_identity",
+  "person_identity",
+  "item_id",
+  "quantity",
+  "unit_price",
+  "amount",
+  "currency",
+  "seller",
+  "delivery_status",
+  "delivery_address_hash"
+ ]
+}
